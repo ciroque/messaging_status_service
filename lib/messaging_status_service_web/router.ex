@@ -19,8 +19,10 @@ defmodule MessagingStatusServiceWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", MessagingStatusServiceWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", MessagingStatusServiceWeb.Api do
+    pipe_through :api
+
+    resources "/sms", SmsStatusController, only: [:index, :create]
+    resources "/call", CallStatusController, only: [:index, :create]
+  end
 end
