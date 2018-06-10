@@ -12,11 +12,7 @@ defmodule MessagingStatusService.CallStatusHandling.TwilioCallLogSource do
   end
 
   defp handle_success(%{"status" => status} = body) do
-    Logger.debug("
-      #{__MODULE__}
-
-      SUCCESS: #{status}
-    ")
+    Logger.debug("#{__MODULE__} SUCCESS: #{status}")
 
     result = case status do
       "canceled" -> :completed
@@ -30,27 +26,20 @@ defmodule MessagingStatusService.CallStatusHandling.TwilioCallLogSource do
   end
 
   defp handle_something_else(status_code, body) do
-    Logger.warn("
-      #{__MODULE__}
+    Logger.warn("#{__MODULE__} status_code: #{status_code} body: #{inspect(body)}")
 
-      WARN
+    result = case status_code do
+      404 -> :completed
+      _> :in_progress
+    end
 
-        status_code: #{status_code}
-
-        body: #{inspect(body)}
-    ")
-
-    {:ok, :in_progress, body}
+    {:ok, result, body}
   end
 
   defp handle_error(response) do
-    Logger.error("
-      #{__MODULE__}
+    Logger.error("#{__MODULE__} ERROR: #{inspect(response)}")
 
-      ERROR: #{inspect(response)}
-    ")
-
-    {:error, :in_progress, response}
+    {:error, :completed, response}
   end
 
   defp headers() do
