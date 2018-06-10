@@ -1,29 +1,22 @@
 defmodule MessagingStatusService.Application do
   use Application
 
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
+  alias MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker
+
   def start(_type, _args) do
     import Supervisor.Spec
 
-    # Define workers and child supervisors to be supervised
     children = [
-      # Start the Ecto repository
       supervisor(MessagingStatusService.Repo, []),
-      # Start the endpoint when the application starts
       supervisor(MessagingStatusServiceWeb.Endpoint, []),
-      # Start your own worker by calling: MessagingStatusService.Worker.start_link(arg1, arg2, arg3)
-      # worker(MessagingStatusService.Worker, [arg1, arg2, arg3]),
+      Honeydew.queue_spec(:call_status_handling),
+      Honeydew.worker_spec(:call_status_handling, {HoneydewCallStatusWorker, []}, num: 3, init_retry_secs: 13)
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: MessagingStatusService.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
-  # Tell Phoenix to update the endpoint configuration
-  # whenever the application is updated.
   def config_change(changed, _new, removed) do
     MessagingStatusServiceWeb.Endpoint.config_change(changed, removed)
     :ok

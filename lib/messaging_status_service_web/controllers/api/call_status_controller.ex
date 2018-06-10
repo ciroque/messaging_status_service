@@ -3,8 +3,11 @@ defmodule MessagingStatusServiceWeb.Api.CallStatusController do
 
   require Logger
 
+  @call_status_handler MessagingStatusService.CallStatusHandling.HoneydewCallStatusHandler
+
   def create(conn, params) do
     Logger.debug("#{__MODULE__} create #{inspect(params)}")
+    @call_status_handler.handle_call_status(params)
     conn |> render("create.json", %{})
   end
 
