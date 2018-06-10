@@ -13,11 +13,11 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker do
     {:ok, state}
   end
 
-  def handle_call_status(%{"DialCallSid" => dial_call_sid} = status, state) do
+  def handle_call_status(%{"CallSid" => call_sid} = status, state) do
     Logger.debug("#{__MODULE__}: handle_call_status status(#{inspect(status)}}), state(#{inspect(state)}) ")
 
-    Logger.debug("#{__MODULE__}: handle_call_status Looking up call log for sid '#{dial_call_sid}'...")
-    case @call_log_source.retrieve_call_log(dial_call_sid) do
+    Logger.debug("#{__MODULE__}: handle_call_status Looking up call log for sid '#{call_sid}'...")
+    case @call_log_source.retrieve_call_log(call_sid) do
       {:ok, :completed, call_log} -> push_to_data_source(call_log)
       {:ok, :in_progress, _call_log} -> requeue(status)
     end
