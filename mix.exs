@@ -41,7 +41,8 @@ defmodule MessagingStatusService.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:honeydew, "~> 1.1"}
+      {:honeydew, "~> 1.1"},
+      {:httpoison, "~> 1.1"}
     ]
   end
 
