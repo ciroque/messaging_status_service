@@ -5,6 +5,7 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker do
 
   require Logger
 
+  @requeue_delay Application.get_env(:messaging_status_service, :call_status_handling)[:requeue_delay]
   @data_source_sink Application.get_env(:messaging_status_service, :call_status_handling)[:data_source_sink]
   @call_log_source Application.get_env(:messaging_status_service, :call_status_handling)[:call_log_source]
   @call_status_handler Application.get_env(:messaging_status_service, :call_status_handling)[:call_status_handler]
@@ -32,7 +33,7 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker do
 
   defp requeue(status) do
     Logger.debug("#{__MODULE__}: handle_call_status Call is in_progress: #{inspect(status)}}")
-    :timer.sleep(5_000)
+    :timer.sleep(@requeue_delay)
     @call_status_handler.handle_call_status(status)
   end
 end

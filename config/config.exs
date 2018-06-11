@@ -20,8 +20,9 @@ config :messaging_status_service, :call_status_handling,
   TWILIO_SECRET: System.get_env("CIROQUE_TWILIO_SECRET") || "${CIROQUE_TWILIO_SECRET}"
 
 config :messaging_status_service, :call_status_handling,
-       call_status_handler: MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker,
-       call_log_source: MessagingStatusService.CallStatusHandling.TwilioCallLogSource,
-       data_source_sink: MessagingStatusService.CallStatusHandling.CompositeDataSourceSink
+  requeue_delay: 5_000,
+  call_status_handler: MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker,
+  call_log_source: MessagingStatusService.CallStatusHandling.TwilioCallLogSource,
+  data_source_sink: MessagingStatusService.CallStatusHandling.CompositeDataSourceSink
 
 import_config "#{Mix.env}.exs"

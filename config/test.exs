@@ -10,6 +10,7 @@ config :messaging_status_service, MessagingStatusServiceWeb.Endpoint,
 config :logger, level: :warn
 
 config :messaging_status_service, :call_status_handling,
+  requeue_delay: 500,
   call_status_handler: MessagingStatusService.CallStatusHandling.CallStatusHandlerMock,
   call_log_source: MessagingStatusService.CallStatusHandling.CallLogSourceMock,
   data_source_sink: MessagingStatusService.CallStatusHandling.DataSourceSinkMock
