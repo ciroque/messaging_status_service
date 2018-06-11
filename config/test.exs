@@ -9,6 +9,11 @@ config :messaging_status_service, MessagingStatusServiceWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :messaging_status_service, :call_status_handling,
+  call_status_handler: MessagingStatusService.CallStatusHandling.CallStatusHandlerMock,
+  call_log_source: MessagingStatusService.CallStatusHandling.CallLogSourceMock,
+  data_source_sink: MessagingStatusService.CallStatusHandling.DataSourceSinkMock
+
 # Configure your database
 config :messaging_status_service, MessagingStatusService.Repo,
   adapter: Ecto.Adapters.Postgres,

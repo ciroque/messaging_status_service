@@ -30,7 +30,7 @@ defmodule MessagingStatusService.CallStatusHandling.TwilioCallLogSource do
 
     result = case status_code do
       404 -> :completed
-      _> :in_progress
+      _ -> :in_progress
     end
 
     {:ok, result, body}

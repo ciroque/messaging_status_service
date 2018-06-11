@@ -43,7 +43,8 @@ defmodule MessagingStatusService.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:honeydew, "~> 1.1"},
-      {:httpoison, "~> 1.1"}
+      {:httpoison, "~> 1.1"},
+      {:mox, "~> 0.3.2"}
     ]
   end
 

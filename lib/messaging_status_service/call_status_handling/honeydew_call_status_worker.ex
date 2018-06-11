@@ -5,9 +5,9 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker do
 
   require Logger
 
-  @call_status_handler MessagingStatusService.CallStatusHandling.HoneydewCallStatusHandler
-  @call_log_source MessagingStatusService.CallStatusHandling.TwilioCallLogSource
-  @data_source_sink MessagingStatusService.CallStatusHandling.CompositeDataSourceSink
+  @data_source_sink Application.get_env(:messaging_status_service, :call_status_handling)[:data_source_sink]
+  @call_log_source Application.get_env(:messaging_status_service, :call_status_handling)[:call_log_source]
+  @call_status_handler Application.get_env(:messaging_status_service, :call_status_handling)[:call_status_handler]
 
   def init(state) do
     {:ok, state}
