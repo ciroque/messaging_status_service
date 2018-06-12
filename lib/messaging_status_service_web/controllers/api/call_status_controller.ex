@@ -8,7 +8,7 @@ defmodule MessagingStatusServiceWeb.Api.CallStatusController do
   def create(conn, params) do
     Logger.debug("#{__MODULE__} create #{inspect(params)}")
     @call_status_handler.handle_call_status(params)
-    conn |> render("create.json", %{})
+    conn |> put_status(:accepted) |> render("create.json", %{})
   end
 
   def index(conn, _params) do

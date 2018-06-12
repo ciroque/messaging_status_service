@@ -3,12 +3,21 @@ defmodule MessagingStatusService.CallStatusHandling.TwilioCallLogSource do
 
   require Logger
 
+  @http_client Application.get_env(:messaging_status_service, :call_status_handling)[:http_client]
+
   def retrieve_call_log(id) do
-    case HTTPoison.get(uri(id), headers(), options()) do
+    response = @http_client.get(uri(id), headers(), options())
+    case response do
       {:ok, %{status_code: 200, body: body}} -> handle_success(Poison.decode!(body))
-      {:ok, %{status_code: status_code, body: body}} -> handle_something_else(status_code, body)
+      {:ok, %{status_code: 404, body: body}} -> handle_not_found(Poison.decode!(body))
+      {:ok, %{status_code: status_code, body: body}} -> handle_unexpected_status_code(status_code, Poison.decode!(body))
       {:error, response} -> handle_error(response)
     end
+  end
+
+  defp handle_not_found(body) do
+    Logger.error("#{__MODULE__} NOT FOUND #{inspect(body)}")
+    {:error, :not_found}
   end
 
   defp handle_success(%{"status" => status} = body) do
@@ -25,21 +34,14 @@ defmodule MessagingStatusService.CallStatusHandling.TwilioCallLogSource do
     {:ok, result, body}
   end
 
-  defp handle_something_else(status_code, body) do
-    Logger.warn("#{__MODULE__} status_code: #{status_code} body: #{inspect(body)}")
-
-    result = case status_code do
-      404 -> :completed
-      _ -> :in_progress
-    end
-
-    {:ok, result, body}
+  defp handle_unexpected_status_code(status_code, body) do
+    Logger.error("#{__MODULE__} status_code: #{status_code} body: #{inspect(body)}")
+    {:error, body}
   end
 
   defp handle_error(response) do
     Logger.error("#{__MODULE__} ERROR: #{inspect(response)}")
-
-    {:error, :completed, response}
+    {:error, response}
   end
 
   defp headers() do
