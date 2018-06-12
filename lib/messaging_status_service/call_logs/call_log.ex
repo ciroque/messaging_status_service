@@ -43,6 +43,6 @@ defmodule MessagingStatusService.CallLog do
     call_log
     |> cast(attrs, [:account_sid, :answered_by, :caller_name, :date_updated, :duration, :forwarded_from, :from_formatted, :parent_call_sid, :price, :sid, :status, :to, :uri, :annotation, :api_version, :date_created, :direction, :end_time, :from, :group_sid, :phone_number_sid, :price_unit, :start_time, :to_formatted])
     |> unique_constraint(:to, name: :unique_call_log_entry)
-    |> validate_required([:account_sid, :date_updated, :duration, :forwarded_from, :from_formatted, :price, :sid, :status, :to, :uri, :api_version, :date_created, :direction, :end_time, :from, :phone_number_sid, :price_unit, :start_time, :to_formatted])
+    |> validate_required([:account_sid, :date_updated, :duration, :forwarded_from, :from_formatted, :sid, :status, :to, :uri, :api_version, :date_created, :direction, :end_time, :from, :phone_number_sid, :price_unit, :start_time, :to_formatted])
   end
 end
