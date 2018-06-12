@@ -23,6 +23,9 @@ config :messaging_status_service, :call_status_handling,
   call_status_handler: MessagingStatusService.CallStatusHandling.HoneydewCallStatusHandler,
   call_log_source: MessagingStatusService.CallStatusHandling.TwilioCallLogSource,
   data_source_sink: MessagingStatusService.CallStatusHandling.CompositeDataSourceSink,
+  composite_data_source_sink_targets: [
+    MessagingStatusService.CallLogs
+  ],
   error_sink: Logger,
   http_client: HTTPoison,
   requeue_delay: 5_000
