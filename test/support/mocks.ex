@@ -13,3 +13,7 @@ Mox.defmock(
 Mox.defmock(
   MessagingStatusService.CallStatusHandling.HttpClientMock,
   for: MessagingStatusService.CallStatusHandling.HttpClientBehaviour)
+
+Mox.defmock(
+  MessagingStatusService.CallStatusHandling.ErrorSinkMock,
+  for: MessagingStatusService.CallStatusHandling.ErrorSinkBehaviour)
