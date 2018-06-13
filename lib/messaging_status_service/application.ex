@@ -9,8 +9,13 @@ defmodule MessagingStatusService.Application do
     children = [
       supervisor(MessagingStatusService.Repo, []),
       supervisor(MessagingStatusServiceWeb.Endpoint, []),
-      Honeydew.queue_spec(:call_status_handling),
-      Honeydew.worker_spec(:call_status_handling, {HoneydewCallStatusWorker, []}, num: 3, init_retry_secs: 13)
+
+      ## These entries enable the in-memory :queue based implementation
+#      Honeydew.queue_spec(:call_status_handling),
+#      Honeydew.worker_spec(:call_status_handling, {HoneydewCallStatusWorker, []}, num: 3, init_retry_secs: 13)
+
+      {Honeydew.EctoPollQueue, [:call_sid_handler, schema: MessagingStatusService.CallSid, repo: MessagingStatusService.Repo]},
+      {Honeydew.Workers, [:call_sid_handler, MessagingStatusService.CallStatusHandling.HoneydewEctoCallStatusWorker]}
     ]
 
     opts = [strategy: :one_for_one, name: MessagingStatusService.Supervisor]
