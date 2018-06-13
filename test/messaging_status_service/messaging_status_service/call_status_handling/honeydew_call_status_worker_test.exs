@@ -43,7 +43,7 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorkerTest
   end
 
   test "request is requeued if the call status is not completed" do
-    expected_call_log = %{"CallSid" => @expected_call_sid, "status" => "completed"}
+    expected_call_log = %{"CallSid" => @expected_call_sid}
     CallLogSourceMock
     |> expect(
       :retrieve_call_log,
