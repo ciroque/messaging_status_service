@@ -3,7 +3,7 @@ defmodule MessagingStatusServiceWeb.Api.CallStatusController do
 
   require Logger
 
-  @call_status_handler MessagingStatusService.CallStatusHandling.HoneydewCallStatusHandler
+  @call_status_handler Application.get_env(:messaging_status_service, :call_status_handling)[:call_status_handler]
 
   def create(conn, params) do
     Logger.debug("#{__MODULE__} create #{inspect(params)}")

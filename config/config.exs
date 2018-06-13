@@ -20,7 +20,7 @@ config :messaging_status_service, :call_status_handling,
   TWILIO_SECRET: System.get_env("CIROQUE_TWILIO_SECRET") || "${CIROQUE_TWILIO_SECRET}"
 
 config :messaging_status_service, :call_status_handling,
-  call_status_handler: MessagingStatusService.CallStatusHandling.HoneydewCallStatusHandler,
+  call_status_handler: MessagingStatusService.CallStatusHandling.EctoBackedCallStatusHandler,
   call_log_source: MessagingStatusService.CallStatusHandling.TwilioCallLogSource,
   data_source_sink: MessagingStatusService.CallStatusHandling.CompositeDataSourceSink,
   composite_data_source_sink_targets: [
