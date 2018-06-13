@@ -1,0 +1,74 @@
+---
+version: 2
+jobs:
+  build:
+    working_directory: /opt/app/messaging_status_service
+
+    docker:
+      - image: ciroque/phoenix-apps-build
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+      - image: postgres:9.4.1
+        environment:
+          POSTGRES_USER: ubuntu
+
+    steps:
+      - checkout
+
+      - run:
+          name: Compile dependencies and app
+          command: mix do deps.get, deps.compile, compile
+
+      - run:
+          name: Run Tests
+          command: mix test
+
+      - store_test_results:
+          path: /root/messaging_status_service/_build/test/lib
+
+      # all steps after this run in the remote environment
+      - type: setup-docker-engine
+        version: 17.06.0-ce
+
+      - run:
+          name: Docker Build
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            if [ "${CIRCLE_BRANCH}" == "alpha" ]; then
+              docker build --build-arg mix_env=alpha -t ciroque/messaging_status_service:$CIRCLE_BRANCH .
+            elif [ "${CIRCLE_BRANCH}" == "beta" ]; then
+              docker build --build-arg mix_env=beta -t ciroque/messaging_status_service:$CIRCLE_BRANCH .
+            else
+              docker build --build-arg mix_env=prod -t ciroque/messaging_status_service:$CIRCLE_BRANCH .
+            fi
+
+      - run:
+          name: Publish container tagged with branch
+          command: |
+            docker push ciroque/messaging_status_service:$CIRCLE_BRANCH
+            docker tag ciroque/messaging_status_service:$CIRCLE_BRANCH ciroque/messaging_status_service:release
+
+      - run:
+          name: Publish latest if master
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker tag ciroque/messaging_status_service:release ciroque/messaging_status_service:latest
+              docker push ciroque/messaging_status_service:latest
+            fi
+
+      - deploy:
+          name: Deploy Alpha image to Docker Hub if alpha branch
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "alpha" ]; then
+              docker tag ciroque/messaging_status_service:release ciroque/messaging_status_service:alpha
+              docker push ciroque/messaging_status_service:alpha
+            fi
+
+      - deploy:
+          name: Deploy Beta image to Docker Hub if beta branch
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "beta" ]; then
+              docker tag ciroque/messaging_status_service:release ciroque/messaging_status_service:beta
+              docker push ciroque/messaging_status_service:beta
+            fi
