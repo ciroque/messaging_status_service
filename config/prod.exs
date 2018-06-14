@@ -59,6 +59,13 @@ config :logger, level: :info
 #     config :messaging_status_service, MessagingStatusServiceWeb.Endpoint, server: true
 #
 
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
+config :messaging_status_service, MessagingStatusServiceWeb.Endpoint,
+       secret_key_base: "4DkXvMFNcCcy9leBFVYoxS8OvidEVPoAa8NJWIfg7lfIW1ydYsb/JJpBsNWq6K1D"
+
+# Configure your database
+config :messaging_status_service, MessagingStatusService.Repo,
+       adapter: Ecto.Adapters.Postgres,
+       username: "postgres",
+       password: "postgres",
+       database: "messaging_status_service_prod",
+       pool_size: 15
