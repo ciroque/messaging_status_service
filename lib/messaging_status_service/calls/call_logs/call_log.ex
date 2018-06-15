@@ -1,4 +1,4 @@
-defmodule MessagingStatusService.CallLog do
+defmodule MessagingStatusService.Calls.CallLog do
   use Ecto.Schema
   import Ecto.Changeset
 

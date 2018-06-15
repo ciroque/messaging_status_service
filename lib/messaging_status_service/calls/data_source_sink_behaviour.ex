@@ -1,4 +1,4 @@
-defmodule MessagingStatusService.CallStatusHandling.DataSourceSinkBehaviour do
+defmodule MessagingStatusService.Calls.DataSourceSinkBehaviour do
   @type call_log_t :: MessagingStatusService.CallLog.t()
   @type error_t :: any()
 

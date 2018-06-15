@@ -3,8 +3,8 @@ defmodule TwilioCallLogSourceTest do
 
   import Mox
 
-  alias MessagingStatusService.CallStatusHandling.TwilioCallLogSource
-  alias MessagingStatusService.CallStatusHandling.HttpClientMock
+  alias MessagingStatusService.Calls.TwilioCallLogSource
+  alias MessagingStatusService.Calls.HttpClientMock
 
   @expected_call_sid "ZYXWV09876"
 

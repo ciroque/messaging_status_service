@@ -1,12 +1,12 @@
-defmodule MessagingStatusService.CallLogs do
+defmodule MessagingStatusService.Calls.CallLogs do
   import Ecto.Query, warn: false
 
-  alias MessagingStatusService.CallLog
+  alias MessagingStatusService.Calls.CallLog
   alias MessagingStatusService.Repo
 
   require Logger
 
-  @behaviour MessagingStatusService.CallStatusHandling.DataSourceSinkBehaviour
+  @behaviour MessagingStatusService.Calls.DataSourceSinkBehaviour
 
   def store_call_log(call_log) do
     {:ok, date_created} = to_rfc1123_date_time(call_log["date_created"])

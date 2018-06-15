@@ -1,4 +1,4 @@
-defmodule MessagingStatusServiceWeb.Api.SmsStatusController do
+defmodule MessagingStatusServiceWeb.Api.SmsCompletedController do
   use MessagingStatusServiceWeb, :controller
 
   require Logger

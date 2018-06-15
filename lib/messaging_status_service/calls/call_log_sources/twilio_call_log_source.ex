@@ -1,9 +1,9 @@
-defmodule MessagingStatusService.CallStatusHandling.TwilioCallLogSource do
-  @behaviour MessagingStatusService.CallStatusHandling.CallLogSourceBehaviour
+defmodule MessagingStatusService.Calls.TwilioCallLogSource do
+  @behaviour MessagingStatusService.Calls.CallLogSourceBehaviour
 
   require Logger
 
-  @http_client Application.get_env(:messaging_status_service, :call_status_handling)[:http_client]
+  @http_client Application.get_env(:messaging_status_service, :calls)[:http_client]
 
   def retrieve_call_log(id) do
     response = @http_client.get(uri(id), headers(), options())
@@ -84,6 +84,6 @@ defmodule MessagingStatusService.CallStatusHandling.TwilioCallLogSource do
   end
 
   defp app_config(key) do
-    Application.get_env(:messaging_status_service, :call_status_handling)[key]
+    Application.get_env(:messaging_status_service, :calls)[key]
   end
 end

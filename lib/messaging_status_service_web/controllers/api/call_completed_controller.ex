@@ -1,13 +1,13 @@
-defmodule MessagingStatusServiceWeb.Api.CallStatusController do
+defmodule MessagingStatusServiceWeb.Api.CallCompletedController do
   use MessagingStatusServiceWeb, :controller
 
   require Logger
 
-  @call_status_handler Application.get_env(:messaging_status_service, :call_status_handling)[:call_status_handler]
+  @call_completed_handler Application.get_env(:messaging_status_service, :calls)[:call_completed_handler]
 
   def create(conn, params) do
     Logger.debug("#{__MODULE__} create #{inspect(params)}")
-    @call_status_handler.handle_call_status(params)
+    @call_completed_handler.handle_call_completed(params)
     conn |> put_status(:accepted) |> render("create.json", %{})
   end
 

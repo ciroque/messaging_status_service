@@ -1,4 +1,4 @@
-defmodule MessagingStatusService.CallStatusHandling.CallLogSourceBehaviour do
+defmodule MessagingStatusService.Calls.CallLogSourceBehaviour do
   @type id_t :: String.t()
   @type call_log_status_t :: :completed | :in_progress
   @type call_log_t :: map()

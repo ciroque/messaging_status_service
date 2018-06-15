@@ -1,7 +1,7 @@
 defmodule MessagingStatusService.Application do
   use Application
 
-  alias MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker
+#  alias MessagingStatusService.Calls.HoneydewCallCompletedWorker
 
   def start(_type, _args) do
     import Supervisor.Spec
@@ -11,11 +11,11 @@ defmodule MessagingStatusService.Application do
       supervisor(MessagingStatusServiceWeb.Endpoint, []),
 
       ## These entries enable the in-memory :queue based implementation
-#      Honeydew.queue_spec(:call_status_handling),
-#      Honeydew.worker_spec(:call_status_handling, {HoneydewCallStatusWorker, []}, num: 3, init_retry_secs: 13)
+#      Honeydew.queue_spec(:calls),
+#      Honeydew.worker_spec(:calls, {HoneydewCallCompletedWorker, []}, num: 3, init_retry_secs: 13)
 
-      {Honeydew.EctoPollQueue, [:call_sid_handler, schema: MessagingStatusService.CallSid, repo: MessagingStatusService.Repo]},
-      {Honeydew.Workers, [:call_sid_handler, MessagingStatusService.CallStatusHandling.HoneydewEctoCallStatusWorker]}
+      {Honeydew.EctoPollQueue, [:call_sid_handler, schema: MessagingStatusService.Calls.CallSid, repo: MessagingStatusService.Repo]},
+      {Honeydew.Workers, [:call_sid_handler, MessagingStatusService.Calls.HoneydewEctoCallCompletedWorker]}
     ]
 
     opts = [strategy: :one_for_one, name: MessagingStatusService.Supervisor]

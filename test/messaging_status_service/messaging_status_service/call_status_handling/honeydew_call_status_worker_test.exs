@@ -1,13 +1,13 @@
-defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorkerTest do
+defmodule MessagingStatusService.Calls.HoneydewCallCompletedWorkerTest do
   use ExUnit.Case
 
   import Mox
 
-  alias MessagingStatusService.CallStatusHandling.DataSourceSinkMock
-  alias MessagingStatusService.CallStatusHandling.CallLogSourceMock
-  alias MessagingStatusService.CallStatusHandling.CallStatusHandlerMock
-  alias MessagingStatusService.CallStatusHandling.ErrorSinkMock
-  alias MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorker
+  alias MessagingStatusService.Calls.DataSourceSinkMock
+  alias MessagingStatusService.Calls.CallLogSourceMock
+  alias MessagingStatusService.Calls.CallCompletedHandlerMock
+  alias MessagingStatusService.Calls.ErrorSinkMock
+  alias MessagingStatusService.Calls.HoneydewCallCompletedWorker
 
   @expected_call_sid "ABCD1234"
 
@@ -39,7 +39,7 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorkerTest
       end
     )
 
-    HoneydewCallStatusWorker.handle_call_status(expected_call_log, [])
+    HoneydewCallCompletedWorker.handle_call_completed(expected_call_log, [])
   end
 
   test "request is requeued if the call status is not completed" do
@@ -53,13 +53,13 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorkerTest
       end
     )
 
-    CallStatusHandlerMock
-    |> expect(:handle_call_status, fn actual_call_log ->
+    CallCompletedHandlerMock
+    |> expect(:handle_call_completed, fn actual_call_log ->
       assert actual_call_log == expected_call_log
       :ok
     end)
 
-    HoneydewCallStatusWorker.handle_call_status(expected_call_log, [])
+    HoneydewCallCompletedWorker.handle_call_completed(expected_call_log, [])
   end
 
   test "call log lookup results in error" do
@@ -69,6 +69,6 @@ defmodule MessagingStatusService.CallStatusHandling.HoneydewCallStatusWorkerTest
       assert msg =~ ":not_found"
       assert msg =~ @expected_call_sid
     end)
-    HoneydewCallStatusWorker.handle_call_status(expected_call_log, [])
+    HoneydewCallCompletedWorker.handle_call_completed(expected_call_log, [])
   end
 end

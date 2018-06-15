@@ -1,4 +1,4 @@
-defmodule MessagingStatusService.CallStatusHandling.HttpClientBehaviour do
+defmodule MessagingStatusService.Calls.HttpClientBehaviour do
   @type url_t :: binary
   @type headers_t :: [{atom, binary}] | [{binary, binary}] | %{binary => binary}
   @type options_t :: Keyword.t()

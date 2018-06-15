@@ -14,17 +14,17 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
-config :messaging_status_service, :call_status_handling,
+config :messaging_status_service, :calls,
   TWILIO_ACCOUNT_SID: System.get_env("CIROQUE_TWILIO_ACCOUNT_SID") || "${CIROQUE_TWILIO_ACCOUNT_SID}",
   TWILIO_SID: System.get_env("CIROQUE_TWILIO_SID") || "${CIROQUE_TWILIO_SID}",
   TWILIO_SECRET: System.get_env("CIROQUE_TWILIO_SECRET") || "${CIROQUE_TWILIO_SECRET}"
 
-config :messaging_status_service, :call_status_handling,
-  call_status_handler: MessagingStatusService.CallStatusHandling.EctoBackedCallStatusHandler,
-  call_log_source: MessagingStatusService.CallStatusHandling.TwilioCallLogSource,
-  data_source_sink: MessagingStatusService.CallStatusHandling.CompositeDataSourceSink,
+config :messaging_status_service, :calls,
+  call_completed_handler: MessagingStatusService.Calls.EctoBackedCallCompletedHandler,
+  call_log_source: MessagingStatusService.Calls.TwilioCallLogSource,
+  data_source_sink: MessagingStatusService.Calls.CompositeDataSourceSink,
   composite_data_source_sink_targets: [
-    MessagingStatusService.CallLogs
+    MessagingStatusService.Calls.CallLogs
   ],
   error_sink: Logger,
   http_client: HTTPoison,

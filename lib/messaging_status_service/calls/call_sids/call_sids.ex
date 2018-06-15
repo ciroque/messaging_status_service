@@ -1,7 +1,7 @@
-defmodule MessagingStatusService.CallSids do
+defmodule MessagingStatusService.Calls.CallSids do
   import Ecto.Query, warn: false
 
-  alias MessagingStatusService.CallSid
+  alias MessagingStatusService.Calls.CallSid
   alias MessagingStatusService.Repo
 
   def create(attrs \\ %{}) do

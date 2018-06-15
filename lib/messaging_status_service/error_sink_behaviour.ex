@@ -1,4 +1,4 @@
-defmodule MessagingStatusService.CallStatusHandling.ErrorSinkBehaviour do
+defmodule MessagingStatusService.Calls.ErrorSinkBehaviour do
   @type message :: IO.chardata() | String.Chars.t()
   @type metadata :: keyword(String.Chars.t())
   @type message_t :: (() -> message) | {message, keyword}
