@@ -1,11 +1,11 @@
 defmodule MessagingStatusService.Calls.TwilioCallLogSource do
-  @behaviour MessagingStatusService.Calls.CallLogSourceBehaviour
+  @behaviour MessagingStatusService.LogSourceBehaviour
 
   require Logger
 
   @http_client Application.get_env(:messaging_status_service, :calls)[:http_client]
 
-  def retrieve_call_log(id) do
+  def retrieve_log(id) do
     response = @http_client.get(uri(id), headers(), options())
     case response do
       {:ok, %{status_code: 200, body: body}} -> handle_success(Poison.decode!(body))

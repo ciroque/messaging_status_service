@@ -7,8 +7,8 @@ Mox.defmock(
   for: MessagingStatusServiceWeb.Sms.SmsCompletedHandlerBehaviour)
 
 Mox.defmock(
-  MessagingStatusService.Calls.CallLogSourceMock,
-  for: MessagingStatusService.Calls.CallLogSourceBehaviour)
+  MessagingStatusService.LogSourceMock,
+  for: MessagingStatusService.LogSourceBehaviour)
 
 Mox.defmock(
   MessagingStatusService.Calls.DataSourceSinkMock,

@@ -12,7 +12,7 @@ defmodule MessagingStatusService.Calls.CallLogResolver do
     | {:ok, :in_progres, map()}
     | {:error, any()}
   def resolve_call_log(call_sid) do
-    case @call_log_source.retrieve_call_log(call_sid) do
+    case @call_log_source.retrieve_log(call_sid) do
       {:ok, :completed, call_log} -> push_to_data_source(call_log)
       {:ok, :in_progress, _call_log} -> requeue(call_sid)
       {:error, reason} -> handle_error(reason, call_sid)

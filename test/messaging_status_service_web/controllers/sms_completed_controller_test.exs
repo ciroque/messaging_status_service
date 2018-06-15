@@ -15,7 +15,7 @@ defmodule MessagingStatusServiceWeb.Sms.SmsControllerTest do
     test "Calls CompletedHandler::handle_completed_sms", %{conn: conn} do
       SmsCompletedHandlerMock |> expect(:handle_sms_completed, fn _ -> :ok end)
       conn = conn |> post(sms_path(conn, :create, %{"SmsSid" => @sms_sid}))
-      assert xml_response(conn, :accepted)
+      assert xml_response(conn, :created)
     end
   end
 end

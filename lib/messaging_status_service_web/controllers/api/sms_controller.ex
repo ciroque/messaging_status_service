@@ -9,7 +9,7 @@ defmodule MessagingStatusServiceWeb.Api.SmsController do
     Logger.debug("#{__MODULE__} create #{inspect(params)}")
     @sms_completed_handler.handle_sms_completed(params)
     conn
-    |> put_status(:accepted)
+    |> put_status(:created)
     |> put_resp_content_type("text/xml")
     |> render("done.xml")
   end
