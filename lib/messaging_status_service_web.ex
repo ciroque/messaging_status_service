@@ -31,6 +31,8 @@ defmodule MessagingStatusServiceWeb do
       import MessagingStatusServiceWeb.Router.Helpers
       import MessagingStatusServiceWeb.ErrorHelpers
       import MessagingStatusServiceWeb.Gettext
+      use Phoenix.View, root: "lib/messaging_status_service_web/templates",
+                        namespace: MessagingStatusService
     end
   end
 

@@ -3,6 +3,10 @@ Mox.defmock(
   for: MessagingStatusService.Calls.CallCompletedHandlerBehaviour)
 
 Mox.defmock(
+  MessagingStatusService.Sms.SmsCompletedHandlerMock,
+  for: MessagingStatusServiceWeb.Sms.SmsCompletedHandlerBehaviour)
+
+Mox.defmock(
   MessagingStatusService.Calls.CallLogSourceMock,
   for: MessagingStatusService.Calls.CallLogSourceBehaviour)
 
