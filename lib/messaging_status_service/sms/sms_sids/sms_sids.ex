@@ -1,4 +1,4 @@
-defmodule MessagingStatusService.SmsSids do
+defmodule MessagingStatusService.Sms.SmsSids do
   import Ecto.Query, warn: false
 
   alias MessagingStatusService.SmsSid

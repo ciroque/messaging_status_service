@@ -3,7 +3,7 @@ defmodule MessagingStatusServiceWeb.Api.SmsController do
 
   require Logger
 
-  @sms_completed_handler MessagingStatusService.Sms.SmsCompletedHandlerMock
+  @sms_completed_handler Application.get_env(:messaging_status_service, :calls)[:sms_completed_handler]
 
   def create(conn, params) do
     Logger.debug("#{__MODULE__} create #{inspect(params)}")

@@ -11,6 +11,7 @@ config :logger, level: :warn
 
 config :messaging_status_service, :calls,
   call_completed_handler: MessagingStatusService.Calls.CallCompletedHandlerMock,
+  sms_completed_handler: MessagingStatusService.Sms.SmsCompletedHandlerMock,
   call_log_source: MessagingStatusService.LogSourceMock,
   composite_data_source_sink_targets: [
     MessagingStatusService.Calls.CallLogs

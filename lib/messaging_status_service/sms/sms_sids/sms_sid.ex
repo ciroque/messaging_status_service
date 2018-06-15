@@ -20,5 +20,6 @@ defmodule MessagingStatusService.SmsSid do
     sms_sid
     |> cast(attrs, [:sms_sid])
     |> validate_required([:sms_sid])
+    |> unique_constraint(:sms_sid, name: :sms_sid_must_be_unique)
   end
 end

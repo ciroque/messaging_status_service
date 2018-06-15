@@ -14,8 +14,8 @@ defmodule MessagingStatusService.Application do
 #      Honeydew.queue_spec(:calls),
 #      Honeydew.worker_spec(:calls, {HoneydewCallCompletedWorker, []}, num: 3, init_retry_secs: 13)
 
-      {Honeydew.EctoPollQueue, [:call_sid_handler, schema: MessagingStatusService.Calls.CallSid, repo: MessagingStatusService.Repo]},
-      {Honeydew.Workers, [:call_sid_handler, MessagingStatusService.Calls.HoneydewEctoCallCompletedWorker]}
+#      {Honeydew.EctoPollQueue, [:call_sid_handler, schema: MessagingStatusService.Calls.CallSid, repo: MessagingStatusService.Repo]},
+#      {Honeydew.Workers, [:call_sid_handler, MessagingStatusService.Calls.HoneydewEctoCallCompletedWorker]}
     ]
 
     opts = [strategy: :one_for_one, name: MessagingStatusService.Supervisor]
