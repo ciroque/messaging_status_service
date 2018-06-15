@@ -1,4 +1,4 @@
-defmodule MessagingStatusServiceWeb.Api.CallCompletedView do
+defmodule MessagingStatusServiceWeb.Api.CallView do
   use MessagingStatusServiceWeb, :view
 
   def render("create.json", %{}) do

@@ -9,6 +9,6 @@ defmodule MessagingStatusServiceWeb.Router do
     pipe_through :api
 
     resources "/sms", SmsController, only: [:create]
-    resources "/call", CallCompletedController, only: [:index, :create]
+    resources "/call", CallController, only: [:index, :create]
   end
 end
