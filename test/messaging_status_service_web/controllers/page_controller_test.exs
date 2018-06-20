@@ -1,3 +1,0 @@
-defmodule MessagingStatusServiceWeb.PageControllerTest do
-  use MessagingStatusServiceWeb.ConnCase
-end

@@ -1,7 +1,7 @@
 defmodule CallLogsTest do
   use MessagingStatusService.DataCase
 
-  alias MessagingStatusService.CallLogs
+  alias MessagingStatusService.Calls.CallLogs
 
   describe "CallLogs" do
     test "create CallLog record" do

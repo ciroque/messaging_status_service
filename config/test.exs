@@ -9,15 +9,16 @@ config :messaging_status_service, MessagingStatusServiceWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-config :messaging_status_service, :call_status_handling,
-  call_status_handler: MessagingStatusService.CallStatusHandling.CallStatusHandlerMock,
-  call_log_source: MessagingStatusService.CallStatusHandling.CallLogSourceMock,
+config :messaging_status_service, :calls,
+  call_completed_handler: MessagingStatusService.Calls.CallCompletedHandlerMock,
+  sms_completed_handler: MessagingStatusService.Sms.SmsCompletedHandlerMock,
+  call_log_source: MessagingStatusService.LogSourceMock,
   composite_data_source_sink_targets: [
-    MessagingStatusService.CallLogs
+    MessagingStatusService.Calls.CallLogs
   ],
-  data_source_sink: MessagingStatusService.CallStatusHandling.DataSourceSinkMock,
-  error_sink: MessagingStatusService.CallStatusHandling.ErrorSinkMock,
-  http_client: MessagingStatusService.CallStatusHandling.HttpClientMock,
+  data_source_sink: MessagingStatusService.Calls.DataSourceSinkMock,
+  error_sink: MessagingStatusService.Calls.ErrorSinkMock,
+  http_client: MessagingStatusService.Calls.HttpClientMock,
   requeue_delay: 500
 
 # Configure your database

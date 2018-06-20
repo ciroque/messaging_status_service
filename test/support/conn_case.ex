@@ -23,6 +23,12 @@ defmodule MessagingStatusServiceWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint MessagingStatusServiceWeb.Endpoint
+
+      def xml_response(conn, status) do
+        body = response(conn, status)
+        _ = response_content_type(conn, :xml)
+        body
+      end
     end
   end
 

@@ -1,19 +1,23 @@
 Mox.defmock(
-  MessagingStatusService.CallStatusHandling.CallStatusHandlerMock,
-  for: MessagingStatusService.CallStatusHandling.CallStatusHandlerBehaviour)
+  MessagingStatusService.Calls.CallCompletedHandlerMock,
+  for: MessagingStatusService.Calls.CallCompletedHandlerBehaviour)
 
 Mox.defmock(
-  MessagingStatusService.CallStatusHandling.CallLogSourceMock,
-  for: MessagingStatusService.CallStatusHandling.CallLogSourceBehaviour)
+  MessagingStatusService.Sms.SmsCompletedHandlerMock,
+  for: MessagingStatusServiceWeb.Sms.SmsCompletedHandlerBehaviour)
 
 Mox.defmock(
-  MessagingStatusService.CallStatusHandling.DataSourceSinkMock,
-  for: MessagingStatusService.CallStatusHandling.DataSourceSinkBehaviour)
+  MessagingStatusService.LogSourceMock,
+  for: MessagingStatusService.LogSourceBehaviour)
 
 Mox.defmock(
-  MessagingStatusService.CallStatusHandling.HttpClientMock,
-  for: MessagingStatusService.CallStatusHandling.HttpClientBehaviour)
+  MessagingStatusService.Calls.DataSourceSinkMock,
+  for: MessagingStatusService.Calls.DataSourceSinkBehaviour)
 
 Mox.defmock(
-  MessagingStatusService.CallStatusHandling.ErrorSinkMock,
-  for: MessagingStatusService.CallStatusHandling.ErrorSinkBehaviour)
+  MessagingStatusService.Calls.HttpClientMock,
+  for: MessagingStatusService.Calls.HttpClientBehaviour)
+
+Mox.defmock(
+  MessagingStatusService.Calls.ErrorSinkMock,
+  for: MessagingStatusService.Calls.ErrorSinkBehaviour)
