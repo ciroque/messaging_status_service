@@ -7,7 +7,9 @@ defmodule MessagingStatusService.Application do
     children = [
       supervisor(MessagingStatusService.Repo, []),
       supervisor(MessagingStatusServiceWeb.Endpoint, []),
-    ] ++ ecto_based_calls_workers()
+    ]
+    ++ ecto_based_calls_workers()
+    ++ ecto_based_sms_workers()
 
     opts = [strategy: :one_for_one, name: MessagingStatusService.Supervisor]
     Supervisor.start_link(children, opts)
@@ -29,6 +31,13 @@ defmodule MessagingStatusService.Application do
     [
       {Honeydew.EctoPollQueue, [:call_sid_handler, schema: MessagingStatusService.Calls.CallSid, repo: MessagingStatusService.Repo]},
       {Honeydew.Workers, [:call_sid_handler, MessagingStatusService.Calls.HoneydewEctoCallCompletedWorker]}
+    ]
+  end
+
+  defp ecto_based_sms_workers() do
+    [
+      {Honeydew.EctoPollQueue, [:sms_sid_handler, schema: MessagingStatusService.Sms.SmsSid, repo: MessagingStatusService.Repo]},
+      {Honeydew.Workers, [:sms_sid_handler, MessagingStatusService.Sms.HoneydewEctoSmsCompletedWorker]}
     ]
   end
 end

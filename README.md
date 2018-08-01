@@ -73,3 +73,40 @@ We use [SemVer](http://semver.org/) for versioning.
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
+
+# Sample Log
+
+%{
+  "AccountSid" => "AC69adbf55f687c6005059f14599cda396", 
+  "ApiVersion" => "2010-04-01", 
+  "CallSid" => "CAd7a23fec81aa0106867e5ac35ed20200", 
+  "CallStatus" => "in-progress", 
+  "Called" => "+15713663791", 
+  "CalledCity" => "RESTON", 
+  "CalledCountry" => "US", 
+  "CalledState" => "VA", 
+  "CalledZip" => "20191", 
+  "Caller" => "+266696687", 
+  "CallerCity" => "", 
+  "CallerCountry" => "LS", 
+  "CallerState" => "", 
+  "CallerZip" => "", 
+  "DialCallDuration" => "11", 
+  "DialCallSid" => "CAfde60e8cd5a7b2e80126988f648fe21b", 
+  "DialCallStatus" => "completed", 
+  "Direction" => "inbound", 
+  "From" => "+266696687", 
+  "FromCity" => "", 
+  "FromCountry" => "LS", 
+  "FromState" => "", 
+  "FromZip" => "", 
+  "To" => "+15713663791", 
+  "ToCity" => "RESTON", 
+  "ToCountry" => "US", 
+  "ToState" => "VA", 
+  "ToZip" => "20191"}
+
+
+
+
+
