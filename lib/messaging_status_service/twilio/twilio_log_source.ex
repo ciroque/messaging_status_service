@@ -37,6 +37,11 @@ defmodule MessagingStatusService.TwilioLogSource do
       "completed" -> :completed
       "busy" -> :completed
       "failed" -> :completed
+      "delivered" -> :completed
+      "received" -> :completed
+      "undelivered" -> :completed
+      "queued" -> :in_progress
+      "sent" -> :in_progress
       _ -> :in_progress
     end
 

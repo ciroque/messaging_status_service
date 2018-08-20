@@ -29,6 +29,7 @@ config :messaging_status_service, :calls,
   ],
   error_sink: Logger,
   http_client: HTTPoison,
-  requeue_delay: 5_000
+  requeue_delay: 5_000,
+  sms_response_redirect: "https://handler.twilio.com/twiml/EHbf859cf0977b0c6ec2c9f465f065714b"
 
 import_config "#{Mix.env}.exs"
