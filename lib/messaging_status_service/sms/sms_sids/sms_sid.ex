@@ -1,4 +1,4 @@
-defmodule MessagingStatusService.SmsSid do
+defmodule MessagingStatusService.Sms.SmsSid do
   use Ecto.Schema
   import Ecto.Changeset
   import Honeydew.EctoPollQueue.Schema

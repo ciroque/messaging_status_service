@@ -1,10 +1,10 @@
 defmodule MessagingStatusService.Sms.SmsSids do
   import Ecto.Query, warn: false
 
-  alias MessagingStatusService.SmsSid
+  alias MessagingStatusService.Sms.SmsSid
   alias MessagingStatusService.Repo
 
-  def create(attrs \\ %{}) when is_map(attrs) do
+  def create(attrs \\ %{}) do
     %SmsSid{}
     |> SmsSid.changeset(attrs)
     |> Repo.insert

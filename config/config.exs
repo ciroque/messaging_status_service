@@ -22,13 +22,15 @@ config :messaging_status_service, :calls,
 config :messaging_status_service, :calls,
   call_completed_handler: MessagingStatusService.Calls.EctoBackedCallCompletedHandler,
   sms_completed_handler: MessagingStatusService.Sms.EctoBackedSmsCompletedHandler,
-  call_log_source: MessagingStatusService.Calls.TwilioCallLogSource,
+  log_source: MessagingStatusService.TwilioLogSource,
   data_source_sink: MessagingStatusService.Calls.CompositeDataSourceSink,
-  composite_data_source_sink_targets: [
+  sms_log_sink: MessagingStatusService.Sms.LocalDbSink,
+  call_log_sinks: [
     MessagingStatusService.Calls.CallLogs
   ],
   error_sink: Logger,
   http_client: HTTPoison,
-  requeue_delay: 5_000
+  requeue_delay: 5_000,
+  sms_response_redirect: "https://handler.twilio.com/twiml/EHbf859cf0977b0c6ec2c9f465f065714b"
 
 import_config "#{Mix.env}.exs"

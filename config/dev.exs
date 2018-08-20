@@ -13,6 +13,8 @@ config :messaging_status_service, MessagingStatusServiceWeb.Endpoint,
   check_origin: false,
   watchers: []
 
+config :logger, level: :info
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

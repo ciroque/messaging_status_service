@@ -1,12 +1,21 @@
-defmodule MessagingStatusService.Calls.TwilioCallLogSource do
+defmodule MessagingStatusService.TwilioLogSource do
   @behaviour MessagingStatusService.LogSourceBehaviour
 
   require Logger
 
   @http_client Application.get_env(:messaging_status_service, :calls)[:http_client]
 
-  def retrieve_log(id) do
-    response = @http_client.get(uri(id), headers(), options())
+  def retrieve_sms_log(id) do
+    retrieve_log(sms_uri(id))
+  end
+
+  def retrieve_call_log(id) do
+    retrieve_log(call_uri(id))
+  end
+
+  def retrieve_log(uri) do
+    Logger.info("#{__MODULE__}::retrieve_log uri(#{uri})")
+    response = @http_client.get(uri, headers(), options())
     case response do
       {:ok, %{status_code: 200, body: body}} -> handle_success(Poison.decode!(body))
       {:ok, %{status_code: 404, body: body}} -> handle_not_found(Poison.decode!(body))
@@ -28,6 +37,11 @@ defmodule MessagingStatusService.Calls.TwilioCallLogSource do
       "completed" -> :completed
       "busy" -> :completed
       "failed" -> :completed
+      "delivered" -> :completed
+      "received" -> :completed
+      "undelivered" -> :completed
+      "queued" -> :in_progress
+      "sent" -> :in_progress
       _ -> :in_progress
     end
 
@@ -52,20 +66,31 @@ defmodule MessagingStatusService.Calls.TwilioCallLogSource do
     [
       hackney:
         [
-          basic_auth: {
-            twilio_sid(),
-            twilio_secret()
+        basic_auth: {
+          twilio_sid(),
+          twilio_secret()
         }
       ]
     ]
   end
 
-  defp uri(id) do
+  defp call_uri(id) do
     twilio_base_uri = "https://api.twilio.com"
     path = [
              "2010-04-01/Accounts",
              twilio_account_sid(),
              "Calls/#{id}.json"
+           ] |> Enum.join("/")
+
+    "#{twilio_base_uri}/#{path}"
+  end
+
+  defp sms_uri(id) do
+    twilio_base_uri = "https://api.twilio.com"
+    path = [
+             "2010-04-01/Accounts",
+             twilio_account_sid(),
+             "Messages/#{id}.json"
            ] |> Enum.join("/")
 
     "#{twilio_base_uri}/#{path}"

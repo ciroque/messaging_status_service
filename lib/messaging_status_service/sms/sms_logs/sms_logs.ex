@@ -10,15 +10,13 @@ defmodule MessagingStatusService.SmsLogs do
 
   def store_sms_log(sms_log) do
     {:ok, date_created} = to_rfc1123_date_time(sms_log["date_created"])
+    {:ok, date_sent} = to_rfc1123_date_time(sms_log["date_sent"])
     {:ok, date_updated} = to_rfc1123_date_time(sms_log["date_updated"])
-    {:ok, start_time} = to_rfc1123_date_time(sms_log["start_time"])
-    {:ok, end_time} = to_rfc1123_date_time(sms_log["end_time"])
 
     sms_log = sms_log
     |> Map.put("date_created", date_created)
+    |> Map.put("date_sent", date_sent)
     |> Map.put("date_updated", date_updated)
-    |> Map.put("start_time", start_time)
-    |> Map.put("end_time", end_time)
 
     case create(sms_log) do
       {:ok, _} -> :ok

@@ -24,7 +24,7 @@ defmodule MessagingStatusService.Calls.HoneydewCallCompletedWorkerTest do
     expected_call_log = %{"CallSid" => @expected_call_sid , "status" => "completed"}
     LogSourceMock
     |> expect(
-      :retrieve_log,
+      :retrieve_call_log,
       fn actual_call_sid ->
         assert actual_call_sid == @expected_call_sid
         {:ok, :completed, expected_call_log}
@@ -46,7 +46,7 @@ defmodule MessagingStatusService.Calls.HoneydewCallCompletedWorkerTest do
     expected_call_log = %{"CallSid" => @expected_call_sid}
     LogSourceMock
     |> expect(
-      :retrieve_log,
+      :retrieve_call_log,
       fn actual_call_sid ->
         assert actual_call_sid == @expected_call_sid
         {:ok, :in_progress, expected_call_log}
@@ -64,7 +64,7 @@ defmodule MessagingStatusService.Calls.HoneydewCallCompletedWorkerTest do
 
   test "call log lookup results in error" do
     expected_call_log = %{"CallSid" => @expected_call_sid, "status" => "completed"}
-    LogSourceMock |> expect(:retrieve_log, fn _id -> {:error, :not_found} end)
+    LogSourceMock |> expect(:retrieve_call_log, fn _id -> {:error, :not_found} end)
     ErrorSinkMock |> expect(:error, fn msg ->
       assert msg =~ ":not_found"
       assert msg =~ @expected_call_sid
