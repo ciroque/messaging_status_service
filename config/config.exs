@@ -22,7 +22,7 @@ config :messaging_status_service, :calls,
 config :messaging_status_service, :calls,
   call_completed_handler: MessagingStatusService.Calls.EctoBackedCallCompletedHandler,
   sms_completed_handler: MessagingStatusService.Sms.EctoBackedSmsCompletedHandler,
-  call_log_source: MessagingStatusService.TwilioLogSource,
+  log_source: MessagingStatusService.TwilioLogSource,
   data_source_sink: MessagingStatusService.Calls.CompositeDataSourceSink,
   composite_data_source_sink_targets: [
     MessagingStatusService.Calls.CallLogs
