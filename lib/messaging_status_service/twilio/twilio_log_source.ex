@@ -14,6 +14,7 @@ defmodule MessagingStatusService.TwilioLogSource do
   end
 
   def retrieve_log(uri) do
+    Logger.info("#{__MODULE__}::retrieve_log uri(#{uri})")
     response = @http_client.get(uri, headers(), options())
     case response do
       {:ok, %{status_code: 200, body: body}} -> handle_success(Poison.decode!(body))
@@ -84,7 +85,7 @@ defmodule MessagingStatusService.TwilioLogSource do
     path = [
              "2010-04-01/Accounts",
              twilio_account_sid(),
-             "SMS/#{id}.json"
+             "Messages/#{id}.json"
            ] |> Enum.join("/")
 
     "#{twilio_base_uri}/#{path}"
