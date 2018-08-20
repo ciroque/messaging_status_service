@@ -3,7 +3,7 @@ defmodule MessagingStatusService.Calls.CompositeDataSourceSink do
 
   require Logger
 
-  @data_source_sinks Application.get_env(:messaging_status_service, :calls)[:composite_data_source_sink_targets]
+  @data_source_sinks Application.get_env(:messaging_status_service, :calls)[:call_log_sinks]
 
   def store_call_log(call_log) do
     Logger.debug("#{__MODULE__}::store_call_log call_log(#{inspect(call_log)})")

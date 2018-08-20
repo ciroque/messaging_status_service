@@ -20,13 +20,6 @@ defmodule MessagingStatusService.Application do
     :ok
   end
 
-  defp queue_based_calls_workers() do
-    [
-      Honeydew.queue_spec(:calls),
-      Honeydew.worker_spec(:calls, {HoneydewCallCompletedWorker, []}, num: 3, init_retry_secs: 13)
-    ]
-  end
-
   defp ecto_based_calls_workers() do
     [
       {Honeydew.EctoPollQueue, [:call_sid_handler, schema: MessagingStatusService.Calls.CallSid, repo: MessagingStatusService.Repo]},

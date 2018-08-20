@@ -1,7 +1,7 @@
 defmodule MessagingStatusService.Sms.SmsLogResolver do
   require Logger
 
-#  @data_source_sink Application.get_env(:messaging_status_service, :calls)[:data_source_sink]
+  @data_source_sink Application.get_env(:messaging_status_service, :calls)[:sms_log_sink]
   @error_sink Application.get_env(:messaging_status_service, :calls)[:error_sink]
   @log_source Application.get_env(:messaging_status_service, :calls)[:log_source]
 
@@ -23,7 +23,7 @@ defmodule MessagingStatusService.Sms.SmsLogResolver do
 
   defp push_to_data_source(call_log) do
     Logger.info("#{__MODULE__}: push_to_data_source Call is complete: #{inspect(call_log)}}")
-#    @data_source_sink.store_sms_log(call_log)
+    @data_source_sink.store_sms_log(call_log)
   end
 
   defp requeue(sms_sid) do
